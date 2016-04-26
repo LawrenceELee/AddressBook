@@ -21,13 +21,13 @@ import android.net.Uri;
 // on phones, MainActivity displays one Fragment at a time, starting with ContactsFragment.
 // on tablets, MainActivity always displays ContactsFragment at the left of the layout and depending on the context, displays either the DetailFragment or the AddEditFragment in the fith 2/3rds of the layout.
 public class MainActivity extends AppCompatActivity
-   implements ContactsFragment.ContactsFragmentListener,
-              DetailFragment.DetailFragmentListener,
-              AddEditFragment.AddEditFragmentListener
+   implements ContactsFragment.ContactsFragmentListener, // contains callbacks used to tell MainActivity when user selects a contacct in the contact list or adds a new contact.
+              DetailFragment.DetailFragmentListener, // contains callbacks that used to delete a contact or edit and existing contact
+              AddEditFragment.AddEditFragmentListener // callbacks for saving a new contact or saves changes to exisiting contacct
 {
 
     // key for storing a contact's Uri in a Bundle passed to a fragment
-    // key-val pair passed between MainActivity and its Fragments
+    // key-val pair passed between MainActivity and various Fragments (which specific Frag depends on what operation)
     public static final String CONTACT_URI = "contact_uri";
 
     // displays contacts list
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity
             mContactsFragment = new ContactsFragment();
 
             // add the fragment to FrameLayout
+            // FragmentTransactions are used to add/remove a Fragment from screen.
             FragmentTransaction fragTransaction =
                 getSupportFragmentManager().beginTransaction();
             fragTransaction.add(R.id.fragmentContainer, mContactsFragment);

@@ -24,6 +24,11 @@ import android.net.Uri;
 
 import com.example.lawrence.addressbook.data.DatabaseDescription.Contact;
 
+// this class manages the contact-list RecyclerView and the FAB for adding contacts.
+// On a phone, this is the first Fragment presented by MainActivity.
+// On a tablet, MainActivity always displays this Fragment on the left side.
+// The nexted interface defines callback methods implemented by MainActivity so
+// that it can respond when a contact is selected of added.
 public class ContactsFragment extends Fragment
    implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -118,7 +123,7 @@ public class ContactsFragment extends Fragment
         mListener = null;
     }
 
-    // init a Loader when this fragment's activity is created
+    // initialize a Loader when this fragment's activity is created
     // Loader and LoaderManager are used to query the AddressBookContentProviderand recieve a Cursor that ContactsAdapter used to supply data to the RecyclerView.
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
