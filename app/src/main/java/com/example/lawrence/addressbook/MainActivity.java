@@ -110,6 +110,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     // display fragment for adding a new or editing an exisiting contact
+    // viewID: int representing the view resource after it is inflated
+    // contactUri: the contact to be added
     private void displayAddEditFragment(int viewID, Uri contactUri){
         AddEditFragment addEditFragment = new AddEditFragment();
 
@@ -120,6 +122,7 @@ public class MainActivity extends AppCompatActivity
             addEditFragment.setArguments(args);
         }
 
+        // new contact being added
         // use a FragmentTransaction to display the AddEditFragment
         FragmentTransaction transaction =
             getSupportFragmentManager().beginTransaction();

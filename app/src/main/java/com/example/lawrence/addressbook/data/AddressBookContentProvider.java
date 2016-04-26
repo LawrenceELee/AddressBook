@@ -17,6 +17,10 @@ import com.example.lawrence.addressbook.data.DatabaseDescription.Contact;
 // subclass of ContentProvider for manipulating the app's data
 // this code will interact with the SQLite object that interact with SQLite db
 // (i.e it defines the CRUD (create, read, update, delete) operations)
+// In general, a ContentProvider exposes an app's data for use in that
+// app or in other apps.
+// For example, Android provides various built-in ContentProviders like
+// Android's Contacts, Calendar, Camera apps.
 public class AddressBookContentProvider extends ContentProvider{
 
     // constants used with UriMatcher to determine operation to perform
@@ -45,6 +49,7 @@ public class AddressBookContentProvider extends ContentProvider{
         // when a Uri matches this form, the UriMatcher returns the constant CONTACTS.
     }
 
+    // ContentResolvers work in partnership with ContentProviders.
     // when Android receives a request from a ContentResolver,
     // Android calls this callback/hook for when AddressBookContentProvider is created
     @Override

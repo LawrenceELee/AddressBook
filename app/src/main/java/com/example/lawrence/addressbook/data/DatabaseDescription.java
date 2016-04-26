@@ -8,15 +8,19 @@ import android.provider.BaseColumns;
 // and other info required by ContentProvider
 public class DatabaseDescription {
     // ContentProvider's authority, the name that's supplied to a ContentResolver to locate a ContentProvider.
-    // it is typically package name.
+    // this is like the domain portion of the URL. it is typically package name.
+    // analogous to URL, http://www.example.com/contactus
+    // http is the scheme
+    // www.example.com is the "authority"
     public static final String AUTHORITY = "com.example.lawrence.addressbook.data";
 
     // base URI used to interact with ContentProvider
     // they look similar to a linux path to a file
     // ex, "content://media/external/audio/media/710"
+    // ex, "content://com.example.lawrence.addressbook.data/external/.../my_contacts_table.db"
     private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
-    // nested class defines contents of contacts table
+    // nested class defines colums/fields/contents of contacts table
     public static final class Contact implements BaseColumns {
         public static final String TABLE_NAME = "contacts";
 
