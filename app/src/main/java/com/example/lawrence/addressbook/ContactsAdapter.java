@@ -15,8 +15,7 @@ import android.widget.TextView;
 import com.example.lawrence.addressbook.data.DatabaseDescription.Contact;
 
 // subclass of RecyclerView.Adapter and is used by ContactsFragment's RecyclerView to bind the sorted list of contact names to the RecyclerView.
-public class ContactsAdapter
-   extends RecyclerView.Adapter<ContactsAdapter.ViewHolder> {
+public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHolder> {
 
    private Cursor mCursor = null;
    private final ContactClickListener mClickListener;
@@ -62,7 +61,7 @@ public class ContactsAdapter
    // return num of items that adapter binds
    @Override
    public int getItemCount() {
-       if( cursor != null )     return cursor.getCount();
+       if( mCursor != null )     return mCursor.getCount();
        else return 0;
    }
 
@@ -75,12 +74,12 @@ public class ContactsAdapter
    // required nested inner class of RecyclerView.ViewHolder
    // used to implement view-holder pattern.
    public class ViewHolder extends RecyclerView.ViewHolder {
-       public final TextView textView;
+       public TextView textView;
        private long rowID;
 
        public ViewHolder(View view){
            super(view);
-           textView = (TextView) view.findViewById(android.R.id.text);
+           textView = (TextView) view.findViewById(android.R.id.text1);
 
            // attach listener to view
            view.setOnClickListener(
@@ -91,13 +90,10 @@ public class ContactsAdapter
                     }
                 }
            );
-
-           // set db row id for contact
-           public void setRowID(long rowID){
-               this.rowID = rowID;
-           }
        }
+
+       // set db row id for contact
+       public void setRowID(long rowID){ this.rowID = rowID; }
+
    } // end ViewHolder nest class
-
-
 }

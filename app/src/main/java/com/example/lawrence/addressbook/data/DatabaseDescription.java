@@ -20,12 +20,12 @@ public class DatabaseDescription {
     // ex, "content://com.example.lawrence.addressbook.data/external/.../my_contacts_table.db"
     private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 
-    // nested class defines colums/fields/contents of contacts table
+    // nested class defines columns/fields/contents of contacts table
     public static final class Contact implements BaseColumns {
         public static final String TABLE_NAME = "contacts";
 
         // Uri for contacts table
-        private static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
 
         // column names for table
         public static final String COLUMN_NAME = "name";

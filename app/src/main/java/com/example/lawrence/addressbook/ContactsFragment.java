@@ -27,16 +27,14 @@ import com.example.lawrence.addressbook.data.DatabaseDescription.Contact;
 // this class manages the contact-list RecyclerView and the FAB for adding contacts.
 // On a phone, this is the first Fragment presented by MainActivity.
 // On a tablet, MainActivity always displays this Fragment on the left side.
-// The nexted interface defines callback methods implemented by MainActivity so
+// The nested interface defines callback methods implemented by MainActivity so
 // that it can respond when a contact is selected of added.
-public class ContactsFragment extends Fragment
-   implements LoaderManager.LoaderCallbacks<Cursor> {
+public class ContactsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     // callback methods implemented by MainActivity
     public interface ContactsFragmentListener{
-
         // callback when contact is selected in MainActivity
-        void onContactsSelected(Uri contactUri);
+        void onContactSelected(Uri contactUri);
 
         // callback when "add" button pressed in MainActivity
         void onAddContact();
@@ -50,14 +48,14 @@ public class ContactsFragment extends Fragment
     // CursorLoader is a subclass of AsyncTaskLoader.
     // Loaders also optimize operations by only "committing" changes when all
     // changes that need to be process have been processed (instead of
-    // commiting changes after every row changed).
+    // committing changes after every row changed).
     private static final int CONTACTS_LOADER = 0; // id's Loader
 
     // used to inform MainActivity when a contact is selected
     private ContactsFragmentListener mListener;
 
     // adapter for RecyclerView
-    private ContactsManager mContactsAdapter;
+    private ContactsAdapter mContactsAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,7 +73,7 @@ public class ContactsFragment extends Fragment
 
 
         // create recyclerView's adapter and item click listener
-        mContactAdapter = new ContactsAdapter(
+        mContactsAdapter = new ContactsAdapter(
             new ContactsAdapter.ContactClickListener(){
                 @Override
                 public void onClick(Uri contactUri){
@@ -124,7 +122,8 @@ public class ContactsFragment extends Fragment
     }
 
     // initialize a Loader when this fragment's activity is created
-    // Loader and LoaderManager are used to query the AddressBookContentProviderand recieve a Cursor that ContactsAdapter used to supply data to the RecyclerView.
+    // Loader and LoaderManager are used to query the AddressBookContentProvider and receive
+    // a Cursor that ContactsAdapter used to supply data to the RecyclerView.
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
@@ -150,7 +149,6 @@ public class ContactsFragment extends Fragment
                         null, // null for all rows
                         null, // no selection args
                         Contact.COLUMN_NAME + " COLLATE NOCASE ASC"); // sort order
-                break;
             default:
                 return null;
         }
@@ -164,7 +162,7 @@ public class ContactsFragment extends Fragment
 
     // called by LoaderManager when Loader is being reset
     @Override
-    public void onLoaderReset(){
+    public void onLoaderReset(Loader<Cursor> loader) {
         mContactsAdapter.swapCursor(null);
     }
 }

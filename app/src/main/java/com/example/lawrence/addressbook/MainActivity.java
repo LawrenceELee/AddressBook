@@ -20,7 +20,8 @@ import android.net.Uri;
 // hosts the app's fragments and handles communication between them
 // on phones, MainActivity displays one Fragment at a time, starting with ContactsFragment.
 // on tablets, MainActivity always displays ContactsFragment at the left of the layout and depending on the context, displays either the DetailFragment or the AddEditFragment in the fith 2/3rds of the layout.
-public class MainActivity extends AppCompatActivity
+public class MainActivity
+   extends    AppCompatActivity
    implements ContactsFragment.ContactsFragmentListener, // contains callbacks used to tell MainActivity when user selects a contacct in the contact list or adds a new contact.
               DetailFragment.DetailFragmentListener, // contains callbacks that used to delete a contact or edit and existing contact
               AddEditFragment.AddEditFragmentListener // callbacks for saving a new contact or saves changes to exisiting contacct
@@ -56,16 +57,16 @@ public class MainActivity extends AppCompatActivity
             fragTransaction.add(R.id.fragmentContainer, mContactsFragment);
             fragTransaction.commit(); // display ContactsFragment
         } else {
-            // reattach the exisiting ContactsFragment.
+            // reattach the existing ContactsFragment.
             mContactsFragment = (ContactsFragment) getSupportFragmentManager()
-                .findFragementById(R.id.mContactsFragment);
+                    .findFragmentById(R.id.contactsFragment);
         }
     }
 
     // display DetailsFragment for selected contact
     @Override
-    public void onContactsSelected(Uri contactUri){
-        if( findViewById(R.id.fragmentContainer) != null ){ 
+    public void onContactSelected(Uri contactUri) {
+        if( findViewById(R.id.fragmentContainer) != null ){
             // phone
 
             displayContact(contactUri, R.id.fragmentContainer);
@@ -103,9 +104,8 @@ public class MainActivity extends AppCompatActivity
         detailFragment.setArguments(args);
 
         // use a FragmentTransaction to display the DetailFragment
-        FragmentTransaction transaction =
-            getSupportFragmentManager().beginTransation();
-        transation.replace(viewID, detailFragment);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(viewID, detailFragment);
         transaction.addToBackStack(null);
         transaction.commit(); // causes DetailFragment to display
     }
@@ -132,7 +132,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     // return to contact list when displayed contact deleted
-    @Override
     public void onContactDeleted(){
         // removes top of backstack
         getSupportFragmentManager().popBackStack();
